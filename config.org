@@ -1,0 +1,114 @@
+* Startup
+#+begin_src emacs-lisp
+  (toggle-scroll-bar -1)
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+#+end_src
+
+* Packages
+** Archives
+#+begin_src emacs-lisp
+  (setq package-archives '(("melpa" . "https://melpa.org/packages/")))
+#+end_src
+
+** Install
+#+begin_src emacs-lisp
+  (setq the-packages '())
+  (mapcar (lambda (package)
+			(if (package-installed-p package)
+				nil
+			  (package-install package)))
+		  the-packages)
+#+end_src
+
+* Look
+** Theme
+#+begin_src emacs-lisp
+  (load-theme 'base16-default-dark t)
+#+end_src
+
+** Font
+#+begin_src emacs-lisp
+  (add-to-list 'default-frame-alist '(font . "Source Code Pro-11" ))
+  (set-face-attribute 'default t :font "Source Code Pro-11" )
+#+end_src
+
+** Parenthesis
+#+begin_src emacs-lisp
+  (show-paren-mode 1)
+  (setq show-paren-delay 0)
+#+end_src
+
+** Tabs
+#+begin_src emacs-lisp
+  (setq-default tab-width 4)
+#+end_src
+
+** Line numbers
+#+begin_src emacs-lisp
+  (global-display-line-numbers-mode)
+#+end_src
+
+** Transparency
+#+begin_src emacs-lisp
+  (set-frame-parameter (selected-frame) 'alpha '(95 95))
+  (add-to-list 'default-frame-alist '(alpha 95 95))
+#+end_src
+
+* Feel
+** WindMove
+#+begin_src emacs-lisp
+  (windmove-default-keybindings)
+#+end_src
+
+** Fix idiosyncrasies
+#+begin_src emacs-lisp
+  (setq make-backup-files nil)
+#+end_src
+
+** Ivy
+#+begin_src emacs-lisp
+  (ivy-mode)
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  ;; enable this if you want `swiper' to use it
+  ;; (setq search-default-mode #'char-fold-to-regexp)
+  (global-set-key "\C-s" 'swiper)
+  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+  (global-set-key (kbd "<f6>") 'ivy-resume)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+  (global-set-key (kbd "<f1> o") 'counsel-describe-symbol)
+  (global-set-key (kbd "<f1> l") 'counsel-find-library)
+  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+  (global-set-key (kbd "C-c g") 'counsel-git)
+  (global-set-key (kbd "C-c j") 'counsel-git-grep)
+  (global-set-key (kbd "C-c k") 'counsel-ag)
+  (global-set-key (kbd "C-x l") 'counsel-locate)
+  (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+  (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+#+end_src
+
+** Company
+#+begin_src emacs-lisp
+  (require 'company)
+  (add-hook 'after-init-hook 'global-company-mode)
+#+end_src
+
+** LSP
+#+begin_src emacs-lisp
+  (require 'lsp-mode)
+  (setq lsp-headerline-breadcrumb-enable nil)
+  (add-hook 'go-mode-hook 'lsp-deferred)
+#+end_src
+
+** NeoTree
+#+begin_src emacs-lisp
+  (require 'neotree)
+  (setq neo-smart-open t)
+  (global-set-key (kbd "<f8>") 'neotree-toggle)
+#+end_src
+
