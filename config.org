@@ -8,17 +8,45 @@
 * Packages
 ** Archives
 #+begin_src emacs-lisp
-  (setq package-archives '(("melpa" . "https://melpa.org/packages/")))
+  (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+						   ("melpa" . "https://melpa.org/packages/")))
 #+end_src
 
 ** Install
 #+begin_src emacs-lisp
-  (setq the-packages '())
+  (setq the-packages
+        '(
+          paredit
+          undo-tree
+          neotree
+          company
+
+          base16-theme
+
+          ivy
+          counsel
+          swiper
+
+          magit
+
+          haskell-mode
+          go-mode
+          company-go
+          zig-mode
+          lsp-mode
+
+          clojure-mode
+          cider
+
+          racket-mode
+          z3-mode
+          ))
+
   (mapcar (lambda (package)
-			(if (package-installed-p package)
-				nil
-			  (package-install package)))
-		  the-packages)
+            (if (package-installed-p package)
+                nil
+              (package-install package)))
+          the-packages)
 #+end_src
 
 * Look
@@ -42,6 +70,7 @@
 ** Tabs
 #+begin_src emacs-lisp
   (setq-default tab-width 4)
+  (setq-default indent-tabs-mode nil)
 #+end_src
 
 ** Line numbers
@@ -56,14 +85,14 @@
 #+end_src
 
 * Feel
-** WindMove
-#+begin_src emacs-lisp
-  (windmove-default-keybindings)
-#+end_src
-
 ** Fix idiosyncrasies
 #+begin_src emacs-lisp
   (setq make-backup-files nil)
+#+end_src
+
+** WindMove
+#+begin_src emacs-lisp
+  (windmove-default-keybindings)
 #+end_src
 
 ** Ivy
