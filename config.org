@@ -27,6 +27,8 @@
           counsel
           swiper
 
+          ace-window
+
           magit
 
           haskell-mode
@@ -93,6 +95,11 @@
 ** WindMove
 #+begin_src emacs-lisp
   (windmove-default-keybindings)
+#+end_src
+
+** Ace-window
+#+begin_src emacs-lisp
+  (global-set-key (kbd "M-o") 'ace-window)
 #+end_src
 
 ** Ivy

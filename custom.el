@@ -6,7 +6,7 @@
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(package-selected-packages
-   '(magit undo-tree z3-mode haskell-mode base16-theme neotree cider clojure-mode paredit company-go go-mode racket-mode lsp-mode zig-mode company counsel ivy auto-complete evil)))
+   '(ace-window magit undo-tree z3-mode haskell-mode base16-theme neotree cider clojure-mode paredit company-go go-mode racket-mode lsp-mode zig-mode company counsel ivy auto-complete evil)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
