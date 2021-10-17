@@ -138,6 +138,10 @@
 #+begin_src emacs-lisp
   (require 'lsp-mode)
   (setq lsp-headerline-breadcrumb-enable nil)
+#+end_src
+
+** Go
+#+begin_src emacs-lisp
   (add-hook 'go-mode-hook 'lsp-deferred)
 #+end_src
 
@@ -146,5 +150,11 @@
   (require 'neotree)
   (setq neo-smart-open t)
   (global-set-key (kbd "<f8>") 'neotree-toggle)
+#+end_src
+
+** Zig
+#+begin_src emacs-lisp
+  (setq lsp-zig-zls-executable "/home/anton/repos/zls/zig-out/bin/zls")
+  (add-hook 'zig-mode-hook 'lsp-deferred)
 #+end_src
 
