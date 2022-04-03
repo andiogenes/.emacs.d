@@ -1,0 +1,98 @@
+* Startup
+#+begin_src emacs-lisp
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (setq inhibit-startup-screen t)
+#+end_src
+
+* Packages
+** Archives
+#+begin_src emacs-lisp
+  (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+						   ("melpa" . "https://melpa.org/packages/")))
+#+end_src
+
+** Install
+#+begin_src emacs-lisp
+  (setq the-packages
+        '(
+          ace-window
+          powerline
+          dashboard
+
+          clojure-mode
+          cider
+          ))
+
+  (mapcar (lambda (package)
+            (if (package-installed-p package)
+                nil
+              (package-install package)))
+          the-packages)
+#+end_src
+
+* Look
+** Dashboard
+#+begin_src emacs-lisp
+  (require 'dashboard)
+  (dashboard-setup-startup-hook)
+  (setq dashboard-center-content t)
+  (setq dashboard-startup-banner dashboard-banner-logo-png)
+#+end_src
+
+** Theme
+#+begin_src emacs-lisp
+  (load-theme 'leuven t)
+#+end_src
+   
+** Font
+#+begin_src emacs-lisp
+  (set-face-font 'default "Source Code Pro 10")
+#+end_src
+
+** Parentheses
+#+begin_src emacs-lisp
+  (show-paren-mode 1)
+  (setq show-paren-delay 0)
+#+end_src
+
+** Tabs
+#+begin_src emacs-lisp
+  (setq-default tab-width 4)
+  (setq-default indent-tabs-mode nil)
+#+end_src
+
+** Line numbers
+#+begin_src emacs-lisp
+  (global-display-line-numbers-mode)
+#+end_src  
+
+** Frame
+#+begin_src emacs-lisp
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+#+end_src
+
+** Mode line
+*** Use Powerline
+#+begin_src emacs-lisp
+  (require 'powerline)
+  (powerline-default-theme)
+#+end_src
+
+*** Disable 3D highlighting
+#+begin_src emacs-lisp
+  (set-face-attribute 'mode-line nil :box nil)
+#+end_src
+
+* Feel
+** Fix idiosyncrasies
+#+begin_src emacs-lisp
+  (setq make-backup-files nil)
+  (setq ring-bell-function 'ignore)
+#+end_src
+
+** Ace-window
+#+begin_src emacs-lisp
+  (global-set-key (kbd "M-o") 'ace-window)
+#+end_src
+
