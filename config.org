@@ -28,11 +28,11 @@
 ** Dashboard
    #+begin_src emacs-lisp
      (use-package dashboard
-                  :ensure t
-                  :config
-                  (dashboard-setup-startup-hook)
-                  (setq dashboard-center-content t)
-                  (setq dashboard-startup-banner dashboard-banner-logo-png))
+       :ensure t
+       :config
+       (dashboard-setup-startup-hook)
+       (setq dashboard-center-content t)
+       (setq dashboard-startup-banner dashboard-banner-logo-png))
    #+end_src
 
 ** Theme
@@ -96,6 +96,30 @@
                   (global-set-key (kbd "M-o") 'ace-window))
    #+end_src
 
+** Expand region
+   #+begin_src emacs-lisp
+     (use-package expand-region
+       :ensure t
+       :config
+       (global-set-key (kbd "C-=") 'er/expand-region))
+   #+end_src
+
+** Preview text replacement
+   #+begin_src emacs-lisp
+     (use-package anzu
+       :ensure t
+       :bind
+       ([remap query-replace] . anzu-query-replace)
+       ([remap query-replace-regexp] . anzu-query-replace-regexp))
+   #+end_src
+
+** Matching parentheses
+   #+begin_src emacs-lisp
+     (use-package elec-pair
+       :config
+       (electric-pair-mode))
+   #+end_src
+
 * Language support
 
 ** Clojure
@@ -107,3 +131,8 @@
                   :ensure t)
    #+end_src
 
+** Go
+   #+begin_src emacs-lisp
+     (use-package go-mode
+       :ensure t)
+   #+end_src
