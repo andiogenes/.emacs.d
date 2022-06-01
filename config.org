@@ -2,6 +2,7 @@
   #+begin_src emacs-lisp
     (tool-bar-mode -1)
     (menu-bar-mode -1)
+    (scroll-bar-mode -1)
     (setq inhibit-startup-screen t)
   #+end_src
 
@@ -37,12 +38,25 @@
 
 ** Theme
    #+begin_src emacs-lisp
-     (load-theme 'leuven t)
+     (defvar arx/current-theme nil
+       "Storage for current theme name.")
+
+     (defun arx/set-theme (theme)
+       "Load Custom theme named THEME and put its name in
+       `arx/current-theme` variable."
+       (load-theme theme t)
+       (setq arx/current-theme theme))
+
+     (use-package almost-mono-themes
+       :config
+       (arx/set-theme 'almost-mono-white))
    #+end_src
    
 ** Font
    #+begin_src emacs-lisp
-     (set-face-font 'default "Source Code Pro 10")
+     (let ((font-default "Source Code Pro 10"))
+       (set-face-attribute 'default nil :font font-default)
+       (set-face-attribute 'fixed-pitch nil :font font-default))
    #+end_src
 
 ** Parentheses
@@ -67,13 +81,19 @@
      (add-to-list 'default-frame-alist '(fullscreen . maximized))
    #+end_src
 
+** Minimize fringes
+   #+begin_src emacs-lisp
+     (fringe-mode '(1 . 0))
+   #+end_src
+
 ** Mode line
-*** Use Powerline
+*** Use N Λ N O modeline
     #+begin_src emacs-lisp
-      (use-package powerline
-                   :ensure t
-                   :config
-                   (powerline-default-theme))
+      (use-package nano-modeline
+        :ensure t
+        :config
+        (setq nano-modeline-position 'bottom)
+        (nano-modeline-mode))
     #+end_src
 
 *** Disable 3D highlighting
@@ -120,19 +140,48 @@
        (electric-pair-mode))
    #+end_src
 
-* Language support
+* Major modes
+
+** Org
+#+begin_src emacs-lisp
+  (defun try-fix-blocks-in-almost-mono-themes ()
+    (when-let* ((almost-mono-prefix "almost-mono-")
+                (full-theme-name (symbol-name arx/current-theme))
+                (_ (string-prefix-p almost-mono-prefix full-theme-name)))
+      (setq org-src-fontify-natively t)
+      (let* ((theme-key
+              (intern
+               (substring full-theme-name (length almost-mono-prefix))))
+             (theme (cdr (assoc theme-key almost-mono-themes-colors)))
+             (foreground (cdr (assoc 'foreground theme)))
+             (weaker (cdr (assoc 'weaker theme)))
+             (weakest (cdr (assoc 'weakest theme))))
+        (set-face-attribute 'org-block-begin-line nil
+                            :background weaker
+                            :foreground foreground
+                            :italic t)
+        (set-face-attribute 'org-block nil
+                            :background weakest
+                            :foreground foreground))))
+
+  (use-package org
+    :config
+    (try-fix-blocks-in-almost-mono-themes))
+
+  (use-package org-bullets
+    :ensure t)
+
+  (add-hook 'org-mode-hook
+            (lambda () (org-bullets-mode 1)))
+#+end_src
 
 ** Clojure
    #+begin_src emacs-lisp
-     (use-package clojure-mode
-                  :ensure t)
-
-     (use-package cider
-                  :ensure t)
+     (use-package clojure-mode)
+     (use-package cider)
    #+end_src
 
 ** Go
    #+begin_src emacs-lisp
-     (use-package go-mode
-       :ensure t)
+     (use-package go-mode)
    #+end_src
