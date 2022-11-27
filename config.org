@@ -47,9 +47,9 @@
        (load-theme theme t)
        (setq arx/current-theme theme))
 
-     (use-package almost-mono-themes
-       :config
-       (arx/set-theme 'almost-mono-white))
+     ;; TODO: use `use-package`
+     (setq modus-themes-org-blocks 'gray-background)
+     (arx/set-theme 'modus-operandi)
    #+end_src
    
 ** Font
@@ -111,9 +111,9 @@
 ** Ace-window
    #+begin_src emacs-lisp
      (use-package ace-window
-                  :ensure t
-                  :config
-                  (global-set-key (kbd "M-o") 'ace-window))
+       :ensure t
+       :config
+       (global-set-key (kbd "M-o") 'ace-window))
    #+end_src
 
 ** Expand region
@@ -139,6 +139,17 @@
        :config
        (electric-pair-mode))
    #+end_src
+
+** Buffer Menu
+   #+begin_src emacs-lisp
+     ;; Display a list of existing buffers in current window
+     (global-set-key (kbd "C-x C-b") 'buffer-menu)
+
+     ;; List buffers in other window using "C-x 4-" prefix
+     (global-set-key (kbd "C-x 4 C-x C-b") 'list-buffers)
+   #+end_src
+
+*** TODO Use '(use-package emacs ...)
 
 * Major modes
 
@@ -184,4 +195,32 @@
 ** Go
    #+begin_src emacs-lisp
      (use-package go-mode)
+   #+end_src
+
+** Zig
+   #+begin_src emacs-lisp
+     (use-package zig-mode)
+   #+end_src
+
+** Lua
+   #+begin_src emacs-lisp
+     (use-package lua-mode)
+   #+end_src
+
+** Haskell
+   #+begin_src emacs-lisp
+     (use-package haskell-mode)
+
+     (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
+     (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
+     (define-key haskell-mode-map (kbd "C-c C-t") 'haskell-process-do-type)
+     (define-key haskell-mode-map (kbd "C-c C-i") 'haskell-process-do-info)
+     (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+     (define-key haskell-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
+     (define-key haskell-mode-map (kbd "C-c c") 'haskell-process-cabal)
+   #+end_src
+
+** Elm
+   #+begin_src emacs-lisp
+     (use-package elm-mode)
    #+end_src
