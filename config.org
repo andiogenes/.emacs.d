@@ -221,6 +221,7 @@
              ("C-c c" . 'haskell-process-cabal)))
 
      (use-package ormolu
+       :after (haskell-mode)
        :custom
        (ormolu-process-path "c:/Program Files/ormolu/ormolu.exe")
        (ormolu-no-cabal t)
