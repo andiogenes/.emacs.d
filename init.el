@@ -143,6 +143,13 @@
 (global-corfu-mode)
 (corfu-popupinfo-mode)
 
+;; Structural editing
+(require 'treesit)
+
+;; https://github.com/andiogenes/treesit-jump
+(require 'treesit-jump)
+(global-set-key (kbd "M-g j") 'treesit-jump-transient)
+
 ;;;; Major modes
 
 ;;; Clojure

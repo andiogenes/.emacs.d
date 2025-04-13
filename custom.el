@@ -8,7 +8,7 @@
  '(package-selected-packages
    '(ace-window clojure-mode consult corfu magit marginalia mini-frame
                 modus-themes scala-mode scala-ts-mode swift-mode
-                transpose-frame vertico)))
+                transpose-frame treesit-jump vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
