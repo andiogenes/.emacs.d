@@ -1,0 +1,7 @@
+auto-save-list/
+elpa/
+transient/
+tree-sitter/
+url/
+
+.DS_Store
