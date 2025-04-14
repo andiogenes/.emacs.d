@@ -157,6 +157,7 @@
 
 ;;; Scala
 (require 'scala-mode)
+;; https://github.com/andiogenes/scala-ts-mode
 (require 'scala-ts-mode)
 
 (unless (treesit-language-available-p 'scala)
