@@ -5,3 +5,4 @@ tree-sitter/
 url/
 
 .DS_Store
+.lsp-session-v1
