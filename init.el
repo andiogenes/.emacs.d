@@ -171,3 +171,6 @@
 
 ;;; Magit
 (require 'magit)
+
+;;; Markdown
+(require 'markdown-mode)
