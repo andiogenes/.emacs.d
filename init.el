@@ -150,6 +150,20 @@
 (require 'treesit-jump)
 (global-set-key (kbd "M-g j") 'treesit-jump-transient)
 
+;; Language Server Protocol
+(defconst use-lsp nil)
+
+(when use-lsp
+  (require 'lsp-mode)
+  (require 'dap-mode)
+
+  (require 'flycheck)
+  (global-flycheck-mode)
+
+  (add-hook 'lsp-mode-hook #'lsp-lens-mode)
+
+  (require 'lsp-ui))
+
 ;;;; Major modes
 
 ;;; Clojure
@@ -168,6 +182,11 @@
 
 (cl-assert (treesit-language-available-p 'scala))
 (add-hook 'scala-mode-hook #'scala-ts-mode)
+
+(when use-lsp
+  ;; https://github.com/andiogenes/lsp-metals-self-delivery
+  (require 'lsp-metals)
+  (add-hook 'scala-mode-hook #'lsp))
 
 ;;; Magit
 (require 'magit)
