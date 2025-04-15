@@ -8,9 +8,9 @@
  '(package-selected-packages
    '(ace-window clojure-mode consult corfu dap-mode flycheck lsp-metals
                 lsp-metals-treeview lsp-mode lsp-ui magit marginalia
-                markdown-mode mini-frame modus-themes scala-mode
-                scala-ts-mode swift-mode transpose-frame treesit-jump
-                vertico)))
+                markdown-mode mini-frame modus-themes neotree
+                scala-mode scala-ts-mode swift-mode transpose-frame
+                treesit-jump vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

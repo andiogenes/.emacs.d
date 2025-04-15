@@ -65,6 +65,9 @@
 ;; Show directories first
 ;; (setq dired-listing-switches "-al --group-directories-first")
 
+;;; Sidebar file tree
+(require 'neotree)
+
 ;; Ace-window
 (require 'ace-window)
 (global-set-key (kbd "M-o") 'ace-window)
