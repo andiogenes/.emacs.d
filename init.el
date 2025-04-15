@@ -141,6 +141,14 @@
 (require 'consult)
 (global-set-key (kbd "M-g i") 'consult-imenu)
 
+(require 'transient)
+(transient-define-prefix consult-search-transient ()
+  ["Consult search commands"
+   ("r" "ripgrep" consult-ripgrep)
+   ("f" "find" consult-find)])
+
+(global-set-key (kbd "M-g s") 'consult-search-transient)
+
 ;; CoRFu
 (require 'corfu)
 (global-corfu-mode)
