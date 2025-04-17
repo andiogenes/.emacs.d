@@ -58,6 +58,10 @@
 ;; Short Yes or No prompt
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; Remap previous/next buffer
+(global-set-key (kbd "M-[") 'previous-buffer)
+(global-set-key (kbd "M-]") 'next-buffer)
+
 ;;; Shell
 (setq-default explicit-shell-file-name "/bin/zsh")
 
