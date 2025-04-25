@@ -19,6 +19,11 @@
 (require 'modus-themes)
 (load-theme 'modus-operandi t)
 
+(defvar after-load-theme-hook nil)
+;; https://www.reddit.com/r/emacs/comments/4v7tcj/comment/d5wyu1r/
+(defadvice load-theme (after run-after-load-theme-hook activate)
+    (run-hooks 'after-load-theme-hook))
+
 ;;; Font
 
 (let ((font-default "Source Code Pro 14"))
@@ -78,18 +83,31 @@
 
 ;; Empty mode-line with bottom border for neotree window
 ;; Works only with modus-themes and derivatives
-(setq
- neo-mode-line-custom-format
- (let* ((themes-and-palettes '((modus-operandi modus-operandi-palette)
-                               (modus-vivendi  modus-vivendi-palette)))
-        (palette (eval (cadr (assoc (car custom-enabled-themes) themes-and-palettes))))
-        (bg-main (cadr (assoc 'bg-main palette)))
-        (border (cadr (assoc 'border palette))))
-   (propertize
-    "%- " 'face
-    `(:box nil
-           :underline (:line-width 1 :color ,border :position t)
-           :foreground ,bg-main :background ,bg-main))))
+(defun partially-disable-neo-mode-line ()
+  (setq
+   neo-mode-line-custom-format
+   (let* ((themes-and-palettes '((modus-operandi modus-operandi-palette)
+                                 (modus-vivendi  modus-vivendi-palette)))
+          (palette (eval (cadr (assoc (car custom-enabled-themes) themes-and-palettes))))
+          (bg-main (cadr (assoc 'bg-main palette)))
+          (border (cadr (assoc 'border palette))))
+     (propertize
+      "%- " 'face
+      `(:box nil
+             :underline (:line-width 1 :color ,border :position t)
+             :foreground ,bg-main :background ,bg-main)))))
+(partially-disable-neo-mode-line)
+
+(add-hook
+ 'after-load-theme-hook
+ (lambda ()
+   (partially-disable-neo-mode-line)
+   (let ((buffer (neo-global--get-buffer))
+         (window (neo-global--get-window))
+         (start-node neo-buffer--start-node))
+     (when buffer
+       (kill-buffer buffer)
+       (when window (neotree-find start-node))))))
 
 (add-hook
  'neotree-mode-hook
