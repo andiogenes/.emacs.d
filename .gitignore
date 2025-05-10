@@ -6,3 +6,5 @@ url/
 
 .DS_Store
 .lsp-session-v1
+
+sensitive.el

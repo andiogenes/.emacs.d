@@ -1,7 +1,9 @@
 (package-initialize)
 
-(setq custom-file "~/.emacs.d/custom.el")
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
+
+(load (expand-file-name "sensitive.el" user-emacs-directory))
 
 ;;; Startup
 
@@ -257,3 +259,8 @@
 (require 'org-modern)
 
 (add-hook 'org-mode-hook #'org-modern-mode)
+
+;;; Custom dashboard Mode
+(load (expand-file-name "dashboard.el" user-emacs-directory))
+(setq arx/dashboard-unseen-university-dir sensitive/unseen-university-dir)
+(arx/dashboard-setup-hooks)
