@@ -6,7 +6,7 @@
 
 ;;; Commentary:
 
-;; Minimal startup screen implemented in worse-to-better style
+;; Minimal startup screen implemented in worse-is-better style
 ;; to cover all my needs in whatever startup screen should be.
 ;;
 ;; Code is written after https://github.com/emacs-dashboard/
