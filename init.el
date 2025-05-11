@@ -264,3 +264,10 @@
 (load (expand-file-name "dashboard.el" user-emacs-directory))
 (setq arx/dashboard-unseen-university-dir sensitive/unseen-university-dir)
 (arx/dashboard-setup-hooks)
+
+;;; Twitch chatting with ERC
+(load (expand-file-name "twitch.el" user-emacs-directory))
+;; TODO: use GnuPG
+(setq arx/twitch-client-id sensitive/twitch-client-id
+      arx/twitch-nick sensitive/twitch-nick
+      arx/twitch-access-token sensitive/twitch-access-token)
