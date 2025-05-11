@@ -117,11 +117,12 @@
 (defun arx/dashboard--re-display (&optional _)
   (let ((dashboard-window (get-buffer-window arx/dashboard-buffer-name)))
     (when (and dashboard-window (not (window-minibuffer-p (frame-selected-window))))
-      (with-current-buffer (get-buffer-create arx/dashboard-buffer-name)
-        (let ((inhibit-read-only t))
-          (erase-buffer)
-          (arx/dashboard--display)
-          (current-buffer))))))
+      (with-selected-window dashboard-window
+        (with-current-buffer (get-buffer-create arx/dashboard-buffer-name)
+          (let ((inhibit-read-only t))
+            (erase-buffer)
+            (arx/dashboard--display)
+            (current-buffer)))))))
 
 (defun arx/dashboard-setup-hooks ()
   (when (< (length command-line-args) 2) ;; No file name passed
