@@ -54,16 +54,27 @@
         arx/dashboard--content-max-line-width
         (seq-max (seq-map #'arx/dashboard--content-estimate-line-length arx/dashboard-content))))
 
+(defun arx/dashboard-find-unseen-university ()
+  "Find Unseen University from dashboard."
+  (interactive)
+  (find-file arx/dashboard-unseen-university-dir))
+
+(defun arx/dashboard-find-emacs-directory ()
+  "Find .emacs.d from dashboard."
+  (interactive)
+  (find-file user-emacs-directory))
+
+(defun arx/dashboard-switch-to-scratch ()
+  "Switch to *scratch* from dashboard."
+  (interactive)
+  (switch-to-buffer "*scratch*"))
 
 (defvar arx/dashboard-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "u") (lambda ()
-                                (interactive) (find-file arx/dashboard-unseen-university-dir)))
-    (define-key map (kbd "e") (lambda ()
-                                (interactive) (find-file user-emacs-directory)))
+    (define-key map (kbd "u") #'arx/dashboard-find-unseen-university)
+    (define-key map (kbd "e") #'arx/dashboard-find-emacs-directory)
     (define-key map (kbd "f") #'find-file)
-    (define-key map (kbd "s") (lambda ()
-                                (interactive) (switch-to-buffer "*scratch*")))
+    (define-key map (kbd "s") #'arx/dashboard-switch-to-scratch)
     map)
   "Keymap for dashboard mode.")
 
