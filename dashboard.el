@@ -25,19 +25,35 @@
   :type 'string)
 
 (defcustom arx/dashboard-content
-  '("[u] - Unseen University"
-    "[e] - .emacs.d"
-    "[f] - find file"
-    "[s] - *scratch*")
+  '(("[u]" . "Unseen University")
+    ("[e]" . ".emacs.d")
+    ("[f]" . "find file")
+    ("[s]" . "*scratch*"))
   "Content of dashboard."
   :group 'arx/dashboard)
 
+(defvar arx/dashboard--content-formatted nil)
 (defvar arx/dashboard--content-line-count 0)
 (defvar arx/dashboard--content-max-line-width 0)
 
+(defun arx/dashboard--content-format (lines)
+  (seq-map
+   (lambda (p)
+     (let ((key (car p)) (descr (cdr p)))
+       (concat (propertize key 'face 'bold) " - " (propertize descr 'face 'italic))))
+   lines))
+
+(defun arx/dashboard--content-estimate-line-length (line)
+  (let ((key (car line)) (descr (cdr line))
+        (sep-len 1) (whitesp-len 2))
+    (+ (length key) (length descr) sep-len whitesp-len)))
+
 (defun arx/dashboard--content-init-vars ()
-  (setq arx/dashboard--content-line-count (length arx/dashboard-content)
-        arx/dashboard--content-max-line-width (seq-max (seq-map #'length arx/dashboard-content))))
+  (setq arx/dashboard--content-formatted (arx/dashboard--content-format arx/dashboard-content)
+        arx/dashboard--content-line-count (length arx/dashboard-content)
+        arx/dashboard--content-max-line-width
+        (seq-max (seq-map #'arx/dashboard--content-estimate-line-length arx/dashboard-content))))
+
 
 (defvar arx/dashboard-mode-map
   (let ((map (make-sparse-keymap)))
@@ -85,7 +101,7 @@
   (arx/dashboard--insert-vertical-padding arx/dashboard--content-line-count)
   (seq-do
    (lambda (s) (arx/dashboard--insert-horizontally-centered-string s arx/dashboard--content-max-line-width))
-   arx/dashboard-content))
+   arx/dashboard--content-formatted))
 
 (defun arx/dashboard--re-display (&optional _)
   (let ((dashboard-window (get-buffer-window arx/dashboard-buffer-name)))
