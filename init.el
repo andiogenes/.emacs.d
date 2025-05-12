@@ -271,3 +271,7 @@
 (setq arx/twitch-client-id sensitive/twitch-client-id
       arx/twitch-nick sensitive/twitch-nick
       arx/twitch-access-token sensitive/twitch-access-token)
+
+(add-hook
+ 'erc-mode-hook
+ (lambda () (display-line-numbers-mode -1)))
