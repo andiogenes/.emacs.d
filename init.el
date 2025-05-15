@@ -275,3 +275,8 @@
 (add-hook
  'erc-mode-hook
  (lambda () (display-line-numbers-mode -1)))
+
+;; Switch to buffer of the joined channel
+(add-hook
+ 'erc-join-hook
+ (lambda () (switch-to-buffer (current-buffer))))
