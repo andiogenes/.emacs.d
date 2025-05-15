@@ -41,12 +41,12 @@
   :group 'arx/twitch
   :type 'string)
 
-(defcustom arx/twich-nick ""
+(defcustom arx/twitch-nick ""
   "Twitch nick name."
   :group 'arx/twitch
   :type 'string)
 
-(defcustom arx/twich-access-token ""
+(defcustom arx/twitch-access-token ""
   "Twitch access token."
   :group 'arx/twitch
   :type 'string)
