@@ -66,9 +66,9 @@
            (number-to-string httpd-port)
            "/twitch\"")))
 
+    (arx/twitch--servlets-init)
     (unless (httpd-running-p)
       (httpd-start))
-    (arx/twitch--servlets-init)
 
     ;; TODO: write crossplatform URL opener
     (shell-command (concat "open " implicit-grant-flow-uri))))
