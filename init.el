@@ -117,6 +117,15 @@
 
 (global-set-key (kbd "M-g t") 'neotree-find)
 
+;;; Tab-bar-mode
+(defface arx/tab-bar-separator
+  `((t :weight extra-light
+       :inherit (variable-pitch child-frame-border vertical-border default)))
+  "Tab bar separator")
+
+(setq tab-bar-separator (propertize "|" 'face 'arx/tab-bar-separator)
+      tab-bar-auto-width nil)
+
 ;; Ace-window
 (require 'ace-window)
 (global-set-key (kbd "M-o") 'ace-window)
