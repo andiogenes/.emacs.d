@@ -286,3 +286,25 @@
 (add-hook
  'erc-join-hook
  (lambda () (switch-to-buffer (current-buffer))))
+
+;; Automatically layout Emacs current frame and browser using AppleScript
+(defun twitch-layout-os-windows ()
+  "Automatically layout Emacs current frame and browser."
+  (interactive)
+  (when (yes-or-no-p (format "Reminder: windows will be arranged properly only if there is only one active instance of Emacs.app and %s.app and they're in the same workspace. Continue?"
+                             sensitive/twitch-browser-app))
+    ;; Set Emacs frame bounds
+    (pcase-let ((`(,x ,y ,w ,h) sensitive/twitch-emacs-bounds))
+      (set-frame-position (selected-frame) x y)
+      (set-frame-size nil w h t))
+    ;; Set Browser window bounds
+    (pcase-let ((`(,x ,y ,w ,h) sensitive/twitch-browser-bounds))
+      (let* ((script-file (expand-file-name "./non-el/resize-other-app.applescript" user-emacs-directory))
+             (osascript-command
+              (concat "osascript "
+                      script-file
+                      " "
+                      sensitive/twitch-browser-app
+                      " "
+                      (mapconcat #'number-to-string sensitive/twitch-browser-bounds " "))))
+        (call-process-shell-command osascript-command nil 0 nil)))))
