@@ -260,6 +260,10 @@
 
 (add-hook 'org-mode-hook #'org-modern-mode)
 
+;;; Scheme
+(require 'geiser)
+(require 'geiser-kawa)
+
 ;;; Custom dashboard Mode
 (load (expand-file-name "dashboard.el" user-emacs-directory))
 (setq arx/dashboard-unseen-university-dir sensitive/unseen-university-dir)
