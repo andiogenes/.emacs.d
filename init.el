@@ -50,6 +50,9 @@
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+;; Remove annoying 1-pixel margin between native window and Emacs frame
+(add-to-list 'default-frame-alist '(internal-border-width . 0))
+
 ;;; Minimize fringes
 
 (fringe-mode '(1 . 1))
