@@ -80,45 +80,13 @@
 ;; (setq dired-listing-switches "-al --group-directories-first")
 
 ;;; Sidebar file tree
-(require 'neotree)
-(setq neo-theme 'arrow)
-(setq neo-mode-line-type 'custom)
-(setq neo-window-width 27)
-(setq neo-window-fixed-size nil)
-
-;; Empty mode-line with bottom border for neotree window
-;; Works only with modus-themes and derivatives
-(defun partially-disable-neo-mode-line ()
-  (setq
-   neo-mode-line-custom-format
-   (let* ((themes-and-palettes '((modus-operandi modus-operandi-palette)
-                                 (modus-vivendi  modus-vivendi-palette)))
-          (palette (eval (cadr (assoc (car custom-enabled-themes) themes-and-palettes))))
-          (bg-main (cadr (assoc 'bg-main palette)))
-          (border (cadr (assoc 'border palette))))
-     (propertize
-      "%- " 'face
-      `(:box nil
-             :underline (:line-width 1 :color ,border :position t)
-             :foreground ,bg-main :background ,bg-main)))))
-(partially-disable-neo-mode-line)
+(require 'treemacs)
 
 (add-hook
- 'after-load-theme-hook
- (lambda ()
-   (partially-disable-neo-mode-line)
-   (let ((buffer (neo-global--get-buffer))
-         (window (neo-global--get-window))
-         (start-node neo-buffer--start-node))
-     (when buffer
-       (kill-buffer buffer)
-       (when window (neotree-find start-node))))))
-
-(add-hook
- 'neotree-mode-hook
+ 'treemacs-mode-hook
  (lambda () (display-line-numbers-mode -1)))
 
-(global-set-key (kbd "M-g t") 'neotree-find)
+(global-set-key (kbd "M-g t") 'treemacs-select-window)
 
 ;;; Tab-bar-mode
 (defface arx/tab-bar-separator
