@@ -223,18 +223,15 @@
 (global-set-key (kbd "M-g j") 'treesit-jump-transient)
 
 ;; Language Server Protocol
+(require 'eglot)
+
 (defconst use-lsp nil)
 
 (when use-lsp
-  (require 'lsp-mode)
   (require 'dap-mode)
 
   (require 'flycheck)
-  (global-flycheck-mode)
-
-  (add-hook 'lsp-mode-hook #'lsp-lens-mode)
-
-  (require 'lsp-ui))
+  (global-flycheck-mode))
 
 ;;;; Major modes
 
