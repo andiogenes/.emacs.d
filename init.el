@@ -241,6 +241,10 @@
 (require 'geiser)
 (require 'geiser-kawa)
 
+;;; LUA
+
+(require 'lua-mode)
+
 ;;; Custom dashboard Mode
 (load (expand-file-name "dashboard.el" user-emacs-directory))
 (setq arx/dashboard-unseen-university-dir sensitive/unseen-university-dir)
