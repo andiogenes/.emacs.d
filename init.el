@@ -289,3 +289,13 @@
                       " "
                       (mapconcat #'number-to-string sensitive/twitch-browser-bounds " "))))
         (call-process-shell-command osascript-command nil 0 nil)))))
+
+;; Show code listings in browser
+
+(load (expand-file-name "listing.el" user-emacs-directory))
+(setq arx/highlight-js-path
+      (expand-file-name
+       "./non-el/third-party/highlight-js/highlight.min.js" user-emacs-directory)
+
+      arx/highlight-js-css-path
+      (expand-file-name "./non-el/third-party/highlight-js/styles/idea.css" user-emacs-directory))
