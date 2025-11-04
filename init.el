@@ -205,6 +205,7 @@
 
 ;;; Clojure
 (require 'clojure-mode)
+(require 'inf-clojure)
 
 ;;; Scala
 (require 'scala-mode)
