@@ -210,16 +210,16 @@
 ;;; Scala
 (require 'scala-mode)
 ;; https://github.com/andiogenes/scala-ts-mode
-(require 'scala-ts-mode)
+;; (require 'scala-ts-mode)
 
-(unless (treesit-language-available-p 'scala)
-  (add-to-list
-   'treesit-language-source-alist
-   '(scala . ("https://github.com/tree-sitter/tree-sitter-scala")))
-  (treesit-install-language-grammar 'scala))
+;; (unless (treesit-language-available-p 'scala)
+;;   (add-to-list
+;;    'treesit-language-source-alist
+;;    '(scala . ("https://github.com/tree-sitter/tree-sitter-scala")))
+;;   (treesit-install-language-grammar 'scala))
 
-(cl-assert (treesit-language-available-p 'scala))
-(add-hook 'scala-mode-hook #'scala-ts-mode)
+;; (cl-assert (treesit-language-available-p 'scala))
+;; (add-hook 'scala-mode-hook #'scala-ts-mode)
 
 (when use-lsp
   ;; https://github.com/andiogenes/lsp-metals-self-delivery
