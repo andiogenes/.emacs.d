@@ -28,7 +28,7 @@
 
 ;;; Font
 
-(let ((font-default "IBM Plex Mono 16"))
+(let ((font-default "JetBrains Mono 15"))
   (set-face-attribute 'default nil :font font-default)
   (set-face-attribute 'fixed-pitch nil :font font-default))
 
