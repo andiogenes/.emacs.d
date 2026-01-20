@@ -6,9 +6,9 @@
  ;; If there is more than one, they won't work right.
  '(mini-frame-show-parameters '((top . 0.25) (width . 0.7) (left . 0.5)))
  '(package-selected-packages
-   '(ace-window clojure-mode consult corfu dap-mode flycheck geiser
-                geiser-kawa inf-clojure json-mode lua-mode magit
-                marginalia markdown-mode mini-frame modus-themes
+   '(ace-window clojure-mode consult corfu dap-mode ellama flycheck
+                geiser geiser-kawa inf-clojure json-mode lua-mode
+                magit marginalia markdown-mode mini-frame modus-themes
                 org-modern scala-mode scala-ts-mode simple-httpd
                 swift-mode transpose-frame treemacs treesit-jump
                 vertico)))
