@@ -11,6 +11,10 @@
 (scroll-bar-mode -1)
 (setq inhibit-startup-screen t)
 
+;; Disable menu bar in terminal mode
+(unless (display-graphic-p)
+  (menu-bar-mode -1))
+
 ;;; Packages
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
