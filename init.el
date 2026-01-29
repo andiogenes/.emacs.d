@@ -69,8 +69,10 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Remap previous/next buffer
-(global-set-key (kbd "M-[") 'previous-buffer)
-(global-set-key (kbd "M-]") 'next-buffer)
+;; Works properly only in GUI mode
+(when (display-graphic-p)
+ (global-set-key (kbd "M-[") 'previous-buffer)
+ (global-set-key (kbd "M-]") 'next-buffer))
 
 ;;; Shell
 (setq-default explicit-shell-file-name "/bin/zsh")
