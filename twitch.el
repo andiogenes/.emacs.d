@@ -1,4 +1,4 @@
-;;; twitch.el --- Twitch chat inside Emacs (via ERC)
+;;; twitch.el --- Twitch chat inside Emacs (via ERC)  -*- lexical-binding: t; -*-
 
 ;; Author : arxdukalis
 ;;

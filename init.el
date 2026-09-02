@@ -1,9 +1,10 @@
+;; -*- lexical-binding: t; -*-
 (package-initialize)
 
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file)
 
-(load (expand-file-name "sensitive.el" user-emacs-directory))
+(load (locate-user-emacs-file "sensitive.el"))
 
 ;;; Startup
 
@@ -22,8 +23,12 @@
 
 ;;; Theme
 
-(require 'modus-themes)
 (load-theme 'modus-operandi t)
+
+;;; Mouse in terminal
+
+(unless (display-graphic-p)
+  (xterm-mouse-mode 1))
 
 (defvar after-load-theme-hook nil)
 ;; https://www.reddit.com/r/emacs/comments/4v7tcj/comment/d5wyu1r/
@@ -32,7 +37,7 @@
 
 ;;; Font
 
-(let ((font-default "JetBrains Mono 15"))
+(let ((font-default "JetBrains Mono 12"))
   (set-face-attribute 'default nil :font font-default)
   (set-face-attribute 'fixed-pitch nil :font font-default))
 
@@ -84,6 +89,18 @@
 ;;; Dired
 ;; Show directories first
 ;; (setq dired-listing-switches "-al --group-directories-first")
+
+;; Copy full path of file with W
+(defun arx/dired-copy-full-filename-as-kill ()
+  (interactive)
+  (let ((name (or (dired-get-subdir) (dired-get-filename))))
+    (kill-new name)
+    (message "%s" name)))
+
+(add-hook
+ 'dired-mode-hook
+ (lambda ()
+   (keymap-set dired-mode-map "W" 'arx/dired-copy-full-filename-as-kill)))
 
 ;;; Sidebar file tree
 (require 'treemacs)
@@ -154,7 +171,7 @@
   (if (and current-prefix-arg (eq current-prefix-arg '-))
       (vertico-first) (vertico-last)))
 
-(setq vertico-count 17)
+(setq vertico-count 5)
 (dolist
     (p '(("RET" . vertico-directory-enter)
          ("DEL" . vertico-directory-delete-char)
@@ -165,16 +182,12 @@
 (require 'marginalia)
 (marginalia-mode)
 
-(require 'mini-frame)
-(mini-frame-mode)
-(custom-set-variables
- '(mini-frame-show-parameters
-   '((top . 0.25)
-     (width . 0.7)
-     (left . 0.5))))
-
 (require 'consult)
 (global-set-key (kbd "M-g i") 'consult-imenu)
+(load (locate-user-emacs-file "consult-nearest-item.el"))
+
+(setq xref-show-xrefs-function #'consult-xref
+      xref-show-definitions-function #'consult-xref)
 
 (require 'transient)
 (transient-define-prefix consult-search-transient ()
@@ -183,29 +196,30 @@
    ("f" "find" consult-find)])
 
 (global-set-key (kbd "M-g s") 'consult-search-transient)
+(global-set-key (kbd "M-g b") 'consult-buffer)
+(global-set-key (kbd "M-g y") 'consult-yank-from-kill-ring)
 
 ;; CoRFu
 (require 'corfu)
 (global-corfu-mode)
 (corfu-popupinfo-mode)
+(setq tab-always-indent 'complete)
 
 ;; Structural editing
 (require 'treesit)
 
-;; https://github.com/andiogenes/treesit-jump
-(require 'treesit-jump)
-(global-set-key (kbd "M-g j") 'treesit-jump-transient)
-
 ;; Language Server Protocol
 (require 'eglot)
+(require 'eglot-hierarchy (locate-user-emacs-file "eglot-hierarchy.el"))
 
 (defconst use-lsp nil)
 
 (when use-lsp
-  (require 'dap-mode)
-
   (require 'flycheck)
   (global-flycheck-mode))
+
+;; Show time
+(display-time-mode)
 
 ;;;; Major modes
 
@@ -252,9 +266,17 @@
 
 (require 'lua-mode)
 
+;;; Cangjie
+(require 'swift3-mode)
+(add-to-list 'auto-mode-alist '("\\.cj\\'" . swift-mode))
+
 ;;; Custom dashboard Mode
-(load (expand-file-name "dashboard.el" user-emacs-directory))
+(load (locate-user-emacs-file "dashboard.el"))
 (setq arx/dashboard-unseen-university-dir sensitive/unseen-university-dir)
+
+(add-to-list 'arx/dashboard-content (cons "[t]" "*vterm*") t)
+(define-key arx/dashboard-mode-map (kbd "t") #'vterm)
+
 (arx/dashboard-setup-hooks)
 
 ;;; Twitch chatting with ERC
@@ -299,10 +321,17 @@
 
 ;; Show code listings in browser
 
-(load (expand-file-name "listing.el" user-emacs-directory))
+(load (locate-user-emacs-file "listing.el"))
 (setq arx/highlight-js-path
-      (expand-file-name
-       "./non-el/third-party/highlight-js/highlight.min.js" user-emacs-directory)
+      (locate-user-emacs-file "./non-el/third-party/highlight-js/highlight.min.js")
 
       arx/highlight-js-css-path
-      (expand-file-name "./non-el/third-party/highlight-js/styles/idea.css" user-emacs-directory))
+      (locate-user-emacs-file "./non-el/third-party/highlight-js/styles/idea.css"))
+
+;; LLVM & MLIR modes
+(require 'llvm-mode (locate-user-emacs-file "llvm-mode.el"))
+(require 'mlir-mode (locate-user-emacs-file "mlir-mode.el"))
+
+;; Ediff behaviour
+(setq ediff-split-window-function 'split-window-horizontally)
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)

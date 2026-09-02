@@ -1,4 +1,4 @@
-;;; listing.el --- Render current buffer as HTML page with syntax-highlighted code listing.
+;;; listing.el --- Render current buffer as HTML page with syntax-highlighted code listing.  -*- lexical-binding: t; -*-
 
 ;; Author : arxdukalis
 ;;

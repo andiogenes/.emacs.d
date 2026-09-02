@@ -1,4 +1,4 @@
-;;; dashboard.el --- Humble custom dashboard
+;;; dashboard.el --- Humble custom dashboard  -*- lexical-binding: t; -*-
 
 ;; Author : arxdukalis
 ;;
@@ -26,7 +26,7 @@
 
 (defcustom arx/dashboard-content
   '(("[u]" . "Unseen University")
-    ("[e]" . ".emacs.d")
+    ("[e]" . ".emacs.d/init.el")
     ("[f]" . "find file")
     ("[s]" . "*scratch*"))
   "Content of dashboard."
@@ -59,10 +59,10 @@
   (interactive)
   (find-file arx/dashboard-unseen-university-dir))
 
-(defun arx/dashboard-find-emacs-directory ()
-  "Find .emacs.d from dashboard."
+(defun arx/dashboard-find-emacs-init-file ()
+  "Find .emacs.d/init.el from dashboard."
   (interactive)
-  (find-file user-emacs-directory))
+  (find-file (format "%s/init.el" user-emacs-directory)))
 
 (defun arx/dashboard-switch-to-scratch ()
   "Switch to *scratch* from dashboard."
@@ -72,7 +72,7 @@
 (defvar arx/dashboard-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "u") #'arx/dashboard-find-unseen-university)
-    (define-key map (kbd "e") #'arx/dashboard-find-emacs-directory)
+    (define-key map (kbd "e") #'arx/dashboard-find-emacs-init-file)
     (define-key map (kbd "f") #'find-file)
     (define-key map (kbd "s") #'arx/dashboard-switch-to-scratch)
     map)
