@@ -37,7 +37,7 @@
 
 ;;; Font
 
-(let ((font-default "JetBrains Mono 12"))
+(let ((font-default "JetBrains Mono 14"))
   (set-face-attribute 'default nil :font font-default)
   (set-face-attribute 'fixed-pitch nil :font font-default))
 
