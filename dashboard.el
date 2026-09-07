@@ -128,3 +128,7 @@
   (when (< (length command-line-args) 2) ;; No file name passed
     (add-hook 'emacs-startup-hook #'arx/dashboard--init)
     (add-hook 'window-size-change-functions #'arx/dashboard--re-display 100)))
+
+(defun arx/dashboard ()
+  (interactive)
+  (switch-to-buffer "*dashboard*"))
