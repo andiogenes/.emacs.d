@@ -103,13 +103,15 @@
    (keymap-set dired-mode-map "W" 'arx/dired-copy-full-filename-as-kill)))
 
 ;;; Sidebar file tree
-(require 'treemacs)
+(require 'neotree)
 
 (add-hook
- 'treemacs-mode-hook
+ 'neotree-mode-hook
  (lambda () (display-line-numbers-mode -1)))
 
-(global-set-key (kbd "M-g t") 'treemacs-select-window)
+(setq neo-theme 'nerd)
+
+(global-set-key (kbd "M-g t") 'neotree-toggle)
 
 ;;; Tab-bar-mode
 (defface arx/tab-bar-separator
