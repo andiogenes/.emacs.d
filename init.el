@@ -335,3 +335,6 @@
 ;; Ediff behaviour
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
+;; VTerm
+(setq vterm-shell "/opt/homebrew/bin/fish")
